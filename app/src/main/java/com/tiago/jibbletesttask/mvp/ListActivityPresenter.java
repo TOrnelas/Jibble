@@ -3,6 +3,7 @@ package com.tiago.jibbletesttask.mvp;
 import com.tiago.jibbletesttask.models.custom.Content;
 import com.tiago.jibbletesttask.models.dto.Album;
 import com.tiago.jibbletesttask.models.dto.Post;
+import com.tiago.jibbletesttask.models.dto.User;
 import com.tiago.jibbletesttask.repositories.DataRepository;
 
 import java.util.ArrayList;
@@ -113,7 +114,41 @@ public class ListActivityPresenter {
 
     private void fetchUsers() {
 
-        // TODO: 09/02/2018
+        repository.fetchUsers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new SingleObserver<List<User>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(List<User> users) {
+
+
+                        List<Content> usersAsContent = new ArrayList<>();
+
+                        for (int i = 0; i < users.size(); i ++){
+
+                            if (i < LIMIT_FOR_EACH_CONTENT)
+                                usersAsContent.add(new Content(users.get(i)));
+                            else
+                                break;
+                        }
+
+                        view.displayIsLoading(false);
+                        view.displayItems(usersAsContent);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        view.displayIsLoading(false);
+                        view.displayError();
+                    }
+                });
     }
 
     public void cancelDataFetching(){

@@ -40,9 +40,6 @@ public class ListActivity extends AppCompatActivity implements ListActivityView 
         binding.contentRv.setAdapter(adapter);
 
         setStyles();
-
-        // TODO: 09/02/2018 fetch data
-
     }
 
     @Override
