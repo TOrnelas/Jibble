@@ -1,6 +1,8 @@
 package com.tiago.jibbletesttask.mvp;
 
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.tiago.jibbletesttask.R;
+import com.tiago.jibbletesttask.Utils;
 import com.tiago.jibbletesttask.adapters.ContentAdapter;
 import com.tiago.jibbletesttask.databinding.ActivityListBinding;
 import com.tiago.jibbletesttask.models.custom.Content;
@@ -102,6 +105,14 @@ public class ListActivity extends AppCompatActivity implements ListActivityView 
     public void displayItems(List<Content> contentList) {
 
         adapter.addItems(contentList);
+
+        if(Utils.isFirstTime(this)){
+
+            new AlertDialog.Builder(this).setTitle(getString(R.string.popup_title))
+                    .setMessage(getString(R.string.popup_text))
+                    .setPositiveButton(getString(R.string.ok), null)
+                    .show();
+        }
     }
 
     @Override
