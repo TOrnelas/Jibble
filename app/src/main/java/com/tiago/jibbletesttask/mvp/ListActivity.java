@@ -4,7 +4,10 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.Toast;
 
 import com.tiago.jibbletesttask.R;
 import com.tiago.jibbletesttask.adapters.ContentAdapter;
@@ -64,6 +67,20 @@ public class ListActivity extends AppCompatActivity implements ListActivityView 
 
     private void setStyles() {
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+                adapter.removeItem(viewHolder.getAdapterPosition());
+            }});
+
+
+        itemTouchHelper.attachToRecyclerView(binding.contentRv);
         binding.contentRv.setLayoutManager(new LinearLayoutManager(this));
     }
 

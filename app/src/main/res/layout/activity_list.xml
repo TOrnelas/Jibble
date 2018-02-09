@@ -13,7 +13,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            tools:context="com.tiago.jibbletesttask.mvp.ListActivity" />
+            android:scrollbars="vertical"
+            android:scrollbarSize="3dp"
+            android:scrollbarStyle="insideOverlay"
+            android:fadeScrollbars="true"
+            android:background="@color/red"/>
 
         <ProgressBar
             android:id="@+id/loading_pb"

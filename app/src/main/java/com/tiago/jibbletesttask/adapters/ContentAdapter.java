@@ -57,6 +57,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
         return items.size() > 0;
     }
 
+    public void removeItem(int adapterPosition) {
+
+        items.remove(adapterPosition);
+        notifyItemRemoved(adapterPosition);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private ListItemContentBinding binding;
