@@ -153,10 +153,12 @@ public class ListActivityPresenter {
 
     public void cancelDataFetching(){
 
-        if (!compositeDisposable.isDisposed()){
+        compositeDisposable.clear();
+    }
 
-            compositeDisposable.clear();
+    public void clearDisposables() {
+
+        if (!compositeDisposable.isDisposed())
             compositeDisposable.dispose();
-        }
     }
 }

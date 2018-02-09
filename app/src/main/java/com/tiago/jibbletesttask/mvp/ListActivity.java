@@ -46,7 +46,7 @@ public class ListActivity extends AppCompatActivity implements ListActivityView 
     protected void onResume() {
 
         super.onResume();
-        presenter.loadContent();
+        if (!adapter.hasItems()) presenter.loadContent();
     }
 
     @Override
@@ -54,6 +54,12 @@ public class ListActivity extends AppCompatActivity implements ListActivityView 
 
         super.onPause();
         presenter.cancelDataFetching();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.clearDisposables();
     }
 
     private void setStyles() {

@@ -48,36 +48,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
     public void addItems(final List<Content> newItems){
 
-//        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
-//            @Override
-//            public int getOldListSize() {
-//
-//                return items.size();
-//            }
-//
-//            @Override
-//            public int getNewListSize() {
-//                return items.size() + newItems.size();
-//            }
-//
-//            @Override
-//            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-//
-//                return items.get(oldItemPosition).getId() == newItems.get(newItemPosition).getId()
-//                        && items.get(oldItemPosition).getType() == newItems.get(newItemPosition).getType();
-//            }
-//
-//            @Override
-//            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-//
-//                return items.get(oldItemPosition).equals(newItems.get(newItemPosition));
-//            }
-//        });
-
         items.addAll(newItems);
         notifyDataSetChanged();
-
-//        diffResult.dispatchUpdatesTo(this);
     }
 
     public boolean hasItems() {

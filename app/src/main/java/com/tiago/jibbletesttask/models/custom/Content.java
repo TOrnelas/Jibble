@@ -41,7 +41,7 @@ public class Content {
 
         this.id = post.getId();
         this.title = post.getTitle();
-        this.title = post.getBody();
+        this.description = post.getBody().replace("\n", " "); //to remove new lines
         this.type = ContentType.post;
     }
 
