@@ -1,4 +1,4 @@
-package com.jollyapps.jibbletesttask;
+package com.tiago.jibbletesttask;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
