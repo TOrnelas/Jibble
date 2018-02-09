@@ -20,7 +20,7 @@ import com.tiago.jibbletesttask.repositories.JsonPlaceholderRepository;
 
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity implements ListActivityView {
+public class ListActivity extends AppCompatActivity implements ListActivityView, View.OnClickListener {
 
     //presenter
     private ListActivityPresenter presenter;
@@ -46,6 +46,9 @@ public class ListActivity extends AppCompatActivity implements ListActivityView 
         binding.contentRv.setAdapter(adapter);
 
         setStyles();
+
+        //listeners
+        binding.retryBt.setOnClickListener(this);
     }
 
     @Override
@@ -91,14 +94,6 @@ public class ListActivity extends AppCompatActivity implements ListActivityView 
     public void displayError() {
 
         binding.errorContainerLl.setVisibility(View.VISIBLE);
-        binding.errorTv.setText(getString(R.string.error));
-    }
-
-    @Override
-    public void displayNoContent() {
-
-        binding.errorContainerLl.setVisibility(View.VISIBLE);
-        binding.errorTv.setText(getString(R.string.no_content));
     }
 
     @Override
@@ -121,5 +116,11 @@ public class ListActivity extends AppCompatActivity implements ListActivityView 
         binding.loadingPb.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         binding.contentRv.setVisibility(!adapter.hasItems() ? View.GONE : View.VISIBLE);
         binding.errorContainerLl.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        presenter.loadContent();
     }
 }

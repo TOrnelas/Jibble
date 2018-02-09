@@ -12,8 +12,6 @@ public interface ListActivityView {
 
     void displayError();
 
-    void displayNoContent();
-
     void displayItems(List<Content> contentList);
 
     void displayIsLoading(boolean isLoading);
