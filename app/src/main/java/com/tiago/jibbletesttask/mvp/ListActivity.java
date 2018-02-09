@@ -1,5 +1,6 @@
 package com.tiago.jibbletesttask.mvp;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AlertDialog;
@@ -8,7 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tiago.jibbletesttask.R;
@@ -20,7 +23,7 @@ import com.tiago.jibbletesttask.repositories.JsonPlaceholderRepository;
 
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity implements ListActivityView, View.OnClickListener {
+public class ListActivity extends AppCompatActivity implements ListActivityView, View.OnClickListener, ContentAdapter.OnItemLongPressedListener {
 
     //presenter
     private ListActivityPresenter presenter;
@@ -42,7 +45,7 @@ public class ListActivity extends AppCompatActivity implements ListActivityView,
         presenter = new ListActivityPresenter(this, new JsonPlaceholderRepository());
 
         //adapter
-        adapter = new ContentAdapter();
+        adapter = new ContentAdapter(this);
         binding.contentRv.setAdapter(adapter);
 
         setStyles();
@@ -122,5 +125,34 @@ public class ListActivity extends AppCompatActivity implements ListActivityView,
     public void onClick(View v) {
 
         presenter.loadContent();
+    }
+
+    @Override
+    public void onItemLongPressed(final int contentPosition, Content content) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.edit_name_popup_title));
+
+        final EditText input = new EditText(this);
+        input.setText(content.getTitle());
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+               adapter.editItemName(contentPosition, input.getText().toString());
+            }
+        });
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 }

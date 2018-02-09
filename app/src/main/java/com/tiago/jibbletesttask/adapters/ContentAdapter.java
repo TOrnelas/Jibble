@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.tiago.jibbletesttask.R;
@@ -19,10 +20,12 @@ import java.util.List;
 
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHolder>{
 
-    List<Content> items;
+    private List<Content> items;
+    private OnItemLongPressedListener listener;
 
-    public ContentAdapter() {
+    public ContentAdapter(OnItemLongPressedListener listener) {
 
+        this.listener = listener;
         this.items = new ArrayList<>();
     }
 
@@ -63,6 +66,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
         notifyItemRemoved(adapterPosition);
     }
 
+    public void editItemName(int position, String newName) {
+
+        items.get(position).setTitle(newName);
+        notifyItemChanged(position);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private ListItemContentBinding binding;
@@ -71,11 +80,25 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
             super(binding.getRoot());
             this.binding = binding;
+
+            this.binding.getRoot().setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    listener.onItemLongPressed(getAdapterPosition(), items.get(getAdapterPosition()));
+                    return false;
+                }
+            });
         }
 
         void bind(Content content){
 
             binding.setContent(content);
         }
+    }
+
+    public interface OnItemLongPressedListener{
+
+        void onItemLongPressed(int contentPosition, Content content);
     }
 }
