@@ -106,8 +106,8 @@ public class ListActivity extends AppCompatActivity implements ListActivityView,
 
         if(Utils.isFirstTime(this)){
 
-            new AlertDialog.Builder(this).setTitle(getString(R.string.popup_title))
-                    .setMessage(getString(R.string.popup_text))
+            new AlertDialog.Builder(this).setTitle(getString(R.string.first_time_popup_title))
+                    .setMessage(getString(R.string.first_time_popup_text))
                     .setPositiveButton(getString(R.string.ok), null)
                     .show();
         }

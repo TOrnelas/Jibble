@@ -3,8 +3,8 @@
     <string name="retry">Retry</string>
     <string name="error">An error occurred</string>
     <string name="no_content">No content available at the moment</string>
-    <string name="popup_title">Remove content</string>
-    <string name="popup_text">Swipe left on an item to remove</string>
+    <string name="first_time_popup_title">Welcome!</string>
+    <string name="first_time_popup_text">Swipe left on an item to remove \n \nLong press on an item to edit the title</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="edit_name_popup_title">Edit name</string>
